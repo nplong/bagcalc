@@ -134,11 +134,11 @@
     </style>
 </head>
 <body>
-    <h1>คำนวณราคาตั๋วรวมกระเป๋าโหลด</h1>
+    <h1>คำนวณราคาตั๋ว รวมกระเป๋าโหลด</h1>
     
     <div class="container">
         <div class="text-area">
-            <div class="title">ค่าตั๋วไม่รวมโหลด</div>
+            <div class="title">ข้อความค่าตั๋วไม่รวมโหลด</div>
             <textarea id="inputText" placeholder="วางข้อความที่นี่..."></textarea>
         </div>
         
@@ -149,9 +149,9 @@
             <button class="kg-30" onclick="calculatePrice(30)">30 กก.</button>
             <button class="kg-35" onclick="calculatePrice(35)">35 กก.</button>
             <button class="kg-40" onclick="calculatePrice(40)">40 กก.</button>
-            <div class="buttons" style="min-width:130px">
-                <input type="number" id="manualPrice" placeholder="เพิ่มราคา" min="0" style="flex: 2; padding: 8px; border: 1px solid #ddd; border-radius: 5px 0 0 5px; font-family: inherit;">
-                <button onclick="applyManualPrice()" style="flex: 1; background-color: #9b59b6; color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer; font-weight: bold;">ตกลง</button>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin: 10px 0;">
+                <input type="number" id="manualPrice" placeholder="บวกเท่าไหร่" min="0" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; width: 100%; box-sizing: border-box;">
+                <button onclick="applyManualPrice()" style="padding: 10px; background-color: #9b59b6; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%;">เพิ่มราคาเอง</button>
             </div>
             <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
         </div>
@@ -167,10 +167,10 @@
         <table>
             <tr class="header-row">
                 <th rowspan="2">น้ำหนัก</th>
-                <th class="thai-lion">ไทยไลอ้อนแอร์</th>
+                <th class="thai-lion">ไลอ้อน</th>
                 <th class="nok-air">นกแอร์</th>
                 <th class="air-asia">แอร์เอเชีย</th>
-                <th class="vietjet">ไทยเวียตเจ็ท</th>
+                <th class="vietjet">เวียดเจ็ท</th>
             </tr>
             <tr>
                 <th class="thai-lion">Thai Lion Air</th>
@@ -239,10 +239,10 @@
 
     <script>
         const baggageFees = {
-            'ไทยไลอ้อนแอร์': {5: 200, 10: 270, 15: 380, 20: 410, 25: 500, 30: 650, 35: 800, 40: null},
+            'ไลอ้อน': {5: 200, 10: 270, 15: 380, 20: 410, 25: 500, 30: 650, 35: 800, 40: null},
             'นกแอร์': {5: null, 10: null, 15: 450, 20: 550, 25: 630, 30: 1000, 35: null, 40: 1200},
             'แอร์เอเชีย': {5: null, 10: null, 15: 600, 20: 650, 25: 800, 30: 1250, 35: null, 40: 1550},
-            'ไทยเวียตเจ็ท': {5: null, 10: null, 15: 380, 20: 450, 25: 540, 30: 860, 35: 1030, 40: 1380}
+            'เวียดเจ็ท': {5: null, 10: null, 15: 380, 20: 450, 25: 540, 30: 860, 35: 1030, 40: 1380}
         };
 
         function calculatePrice(kg) {
@@ -255,7 +255,7 @@
             let outputText = inputText;
             
             // Process for Thai Lion Air
-            processAirline(outputText, 'ไทยไลอ้อนแอร์', kg);
+            processAirline(outputText, 'ไลอ้อน', kg);
             
             // Process for Nok Air
             processAirline(outputText, 'นกแอร์', kg);
@@ -264,7 +264,7 @@
             processAirline(outputText, 'แอร์เอเชีย', kg);
             
             // Process for Thai VietJet
-            processAirline(outputText, 'ไทยอ้อน', kg);
+            processAirline(outputText, 'เวียดเจ็ท', kg);
             
             function processAirline(text, airline, selectedKg) {
                 const lines = text.split('\n');
@@ -287,7 +287,7 @@
                             // Handle special cases
                             if (selectedKg === 35 && (currentAirline === 'แอร์เอเชีย' || currentAirline === 'นกแอร์')) {
                                 displayKg = 40;
-                            } else if (selectedKg === 40 && currentAirline === 'ไทยไลอ้อนแอร์') {
+                            } else if (selectedKg === 40 && currentAirline === 'ไลอ้อน') {
                                 displayKg = 35;
                             }
                             
@@ -306,14 +306,14 @@
                             let fee = 0;
                             
                             // Get appropriate baggage fee
-                            if (currentAirline === 'ไทยไลอ้อนแอร์') {
-                                fee = getBaggageFee('ไทยไลอ้อนแอร์', selectedKg);
+                            if (currentAirline === 'ไลอ้อน') {
+                                fee = getBaggageFee('ไลอ้อน', selectedKg);
                             } else if (currentAirline === 'นกแอร์') {
                                 fee = getBaggageFee('นกแอร์', selectedKg);
                             } else if (currentAirline === 'แอร์เอเชีย') {
                                 fee = getBaggageFee('แอร์เอเชีย', selectedKg);
-                            } else if (currentAirline === 'ไทยอ้อน') {
-                                fee = getBaggageFee('ไทยเวียตเจ็ท', selectedKg);
+                            } else if (currentAirline === 'เวียดเจ็ท') {
+                                fee = getBaggageFee('เวียดเจ็ท', selectedKg);
                             }
                             
                             // Update price
@@ -338,7 +338,7 @@
                     if (airline === 'แอร์เอเชีย' || airline === 'นกแอร์') {
                         return baggageFees[airline][40] || 0;
                     }
-                } else if (kg === 40 && airline === 'ไทยไลอ้อนแอร์') {
+                } else if (kg === 40 && airline === 'ไลอ้อน') {
                     return baggageFees[airline][35] || 0;
                 }
                 
